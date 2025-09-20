@@ -1,3 +1,18 @@
+# Commit-TCC (TCC)
+
+Este repositório contém um projeto Laravel para o TCC com melhorias na interface de registro/login.
+
+Principais mudanças recentes:
+- Tema escuro para as telas de registro e login.
+- Fundo com gradiente azul escuro e ponto de luz suave.
+- Toggle Pessoa/Empresa no formulário de registro.
+
+Para rodar localmente:
+1. Instale dependências (se necessário): `composer install` e `npm install`.
+2. Configure `.env` (copie `.env.example` e ajuste as variáveis).
+3. Rode o servidor Laravel: `php artisan serve`.
+
+Observação: este commit foi criado localmente. Para publicar no GitHub, adicione um remote e faça `git push`.
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">

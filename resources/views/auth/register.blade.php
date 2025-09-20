@@ -1,89 +1,104 @@
-<x-guest-layout>
-    <x-slot:title>Criar Conta</x-slot:title>
-    <x-slot:subtitle>Preencha os dados para começar</x-slot:subtitle>
-
-    <form method="POST" action="{{ route('register') }}" x-data="{ role: '{{ old('role','user') }}' }" class="space-y-6">
-        @csrf
-
-        <div class="space-y-1">
-            <x-input-label for="name" value="Nome" class="text-slate-200" />
-            <x-text-input id="name" class="block w-full bg-white/10 border-white/20 text-white placeholder-slate-400 focus:border-emerald-400 focus:ring-emerald-400" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-1" />
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Criar Conta — Blockchain Verde</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <style>
+    [x-cloak]{display:none!important}
+    /* Custom page background: dark blue gradient with soft radial light on right */
+    .page-bg {
+      background: radial-gradient(800px 400px at 85% 35%, rgba(200,245,235,0.06), transparent 10%),
+                  linear-gradient(135deg, #0b1220 0%, #1f2937 30%, #14505b 60%, #071029 100%);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    /* subtle card backdrop to show the background through */
+    .card-glass { background-color: rgba(255,255,255,0.04); }
+  </style>
+</head>
+<body class="min-h-screen page-bg flex items-center justify-center">
+  <div class="w-full max-w-3xl mx-auto p-6">
+    <div class="card-glass backdrop-blur-lg rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
+      <div class="grid grid-cols-12">
+  <div class="col-span-12 md:col-span-5 bg-gradient-to-b from-slate-900/60 to-teal-900/40 p-8 flex flex-col items-center justify-center">
+          <div class="w-20 h-20 rounded-xl bg-gradient-to-br from-teal-400 to-cyan-600 flex items-center justify-center text-white mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h2 class="text-2xl font-bold text-white mb-1">Criar Conta</h2>
+          <p class="text-sm text-white/60">Escolha Pessoa ou Empresa e preencha os dados</p>
         </div>
+        <div class="col-span-12 md:col-span-7 p-8">
+          <form method="POST" action="{{ route('register') }}" x-data="{ role: '{{ old('role','user') }}' }" class="space-y-4">
+            @csrf
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-sm text-white/80">Nome</label>
+                <input name="name" type="text" class="mt-1 w-full px-3 py-2 rounded-md bg-slate-800 text-white border border-white/5" required>
+              </div>
+              <div>
+                <label class="block text-sm text-white/80">Tipo de Conta</label>
+                <div class="mt-1 flex gap-2">
+                  <label :class="role==='user'? 'px-3 py-2 rounded-md bg-teal-600 text-white cursor-pointer':'px-3 py-2 rounded-md bg-white text-gray-800 cursor-pointer'">
+                    <input class="hidden" type="radio" name="role" value="user" x-model="role"> Pessoa
+                  </label>
+                  <label :class="role==='company'? 'px-3 py-2 rounded-md bg-teal-600 text-white cursor-pointer':'px-3 py-2 rounded-md bg-white text-gray-800 cursor-pointer'">
+                    <input class="hidden" type="radio" name="role" value="company" x-model="role"> Empresa
+                  </label>
+                </div>
+              </div>
 
-        <div class="space-y-1">
-            <x-input-label for="role" value="Tipo de Conta" class="text-slate-200" />
-            <select id="role" name="role" x-model="role" class="block w-full bg-white/10 border-white/20 text-white rounded-md focus:border-emerald-400 focus:ring-emerald-400">
-                <option class="text-gray-900" value="user">Usuário Comprador</option>
-                <option class="text-gray-900" value="company">Empresa Fornecedora</option>
-            </select>
-            <x-input-error :messages="$errors->get('role')" class="mt-1" />
-        </div>
+              <div>
+                <label class="block text-sm text-white/80">Email</label>
+                <input name="email" type="email" class="mt-1 w-full px-3 py-2 rounded-md bg-slate-800 text-white border border-white/5" required>
+              </div>
+              <div>
+                <label class="block text-sm text-white/80">Telefone</label>
+                <input name="telefone" type="text" class="mt-1 w-full px-3 py-2 rounded-md bg-slate-800 text-white border border-white/5">
+              </div>
 
-        <div class="space-y-1">
-            <x-input-label for="email" value="Email" class="text-slate-200" />
-            <x-text-input id="email" class="block w-full bg-white/10 border-white/20 text-white placeholder-slate-400 focus:border-emerald-400 focus:ring-emerald-400" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-1" />
-        </div>
+              <div>
+                <label class="block text-sm text-white/80">CEP</label>
+                <input name="cep" type="text" class="mt-1 w-full px-3 py-2 rounded-md bg-slate-800 text-white border border-white/5">
+              </div>
+              <div>
+                <label class="block text-sm text-white/80">Data de Nascimento</label>
+                <input name="data_nascimento" type="date" class="mt-1 w-full px-3 py-2 rounded-md bg-slate-800 text-white border border-white/5">
+              </div>
 
-        <!-- Pessoa Física -->
-        <div class="grid gap-6" x-show="role === 'user'" x-cloak>
-            <div class="space-y-1">
-                <x-input-label for="cpf" value="CPF" class="text-slate-200" />
-                <x-text-input id="cpf" type="text" name="cpf" :value="old('cpf')" class="block w-full bg-white/10 border-white/20 text-white focus:border-emerald-400 focus:ring-emerald-400" maxlength="14" data-mask="cpf" />
-                <x-input-error :messages="$errors->get('cpf')" class="mt-1" />
-            </div>
-            <div class="space-y-1">
-                <x-input-label for="data_nascimento" value="Data de Nascimento" class="text-slate-200" />
-                <x-text-input id="data_nascimento" type="date" name="data_nascimento" :value="old('data_nascimento')" class="block w-full bg-white/10 border-white/20 text-white focus:border-emerald-400 focus:ring-emerald-400" />
-                <x-input-error :messages="$errors->get('data_nascimento')" class="mt-1" />
-            </div>
-        </div>
+              <div x-cloak x-show="role==='user'" x-transition class="col-span-2">
+                <label class="block text-sm text-white/80">CPF</label>
+                <input name="cpf" type="text" class="mt-1 w-full px-3 py-2 rounded-md bg-slate-800 text-white border border-white/5">
+              </div>
 
-        <!-- Empresa -->
-        <div class="grid gap-6" x-show="role === 'company'" x-cloak>
-            <div class="space-y-1">
-                <x-input-label for="cnpj" value="CNPJ" class="text-slate-200" />
-                <x-text-input id="cnpj" type="text" name="cnpj" :value="old('cnpj')" class="block w-full bg-white/10 border-white/20 text-white focus:border-emerald-400 focus:ring-emerald-400" maxlength="18" data-mask="cnpj" />
-                <x-input-error :messages="$errors->get('cnpj')" class="mt-1" />
-            </div>
-            <div class="space-y-1">
-                <x-input-label for="cargo" value="Cargo" class="text-slate-200" />
-                <x-text-input id="cargo" type="text" name="cargo" :value="old('cargo')" class="block w-full bg-white/10 border-white/20 text-white focus:border-emerald-400 focus:ring-emerald-400" />
-                <x-input-error :messages="$errors->get('cargo')" class="mt-1" />
-            </div>
-        </div>
+              <div x-cloak x-show="role==='company'" x-transition class="col-span-2">
+                <label class="block text-sm text-white/80">CNPJ</label>
+                <input name="cnpj" type="text" class="mt-1 w-full px-3 py-2 rounded-md bg-slate-800 text-white border border-white/5">
+              </div>
 
-        <!-- Comuns -->
-        <div class="space-y-1">
-            <x-input-label for="telefone" value="Telefone" class="text-slate-200" />
-            <x-text-input id="telefone" type="text" name="telefone" :value="old('telefone')" class="block w-full bg-white/10 border-white/20 text-white focus:border-emerald-400 focus:ring-emerald-400" data-mask="telefone" />
-            <x-input-error :messages="$errors->get('telefone')" class="mt-1" />
-        </div>
-        <div class="space-y-1">
-            <x-input-label for="cep" value="CEP" class="text-slate-200" />
-            <x-text-input id="cep" type="text" name="cep" :value="old('cep')" class="block w-full bg-white/10 border-white/20 text-white focus:border-emerald-400 focus:ring-emerald-400" maxlength="10" data-mask="cep" />
-            <x-input-error :messages="$errors->get('cep')" class="mt-1" />
-        </div>
+              <div class="col-span-2 grid grid-cols-2 gap-3 items-end">
+                <div>
+                  <label class="block text-sm text-white/80">Senha</label>
+                  <input name="password" type="password" class="mt-1 w-full px-3 py-2 rounded-md bg-slate-800 text-white border border-white/5" required>
+                </div>
+                <div>
+                  <label class="block text-sm text-white/80">Confirmar Senha</label>
+                  <input name="password_confirmation" type="password" class="mt-1 w-full px-3 py-2 rounded-md bg-slate-800 text-white border border-white/5" required>
+                </div>
+              </div>
 
-        <div class="grid md:grid-cols-2 gap-6">
-            <div class="space-y-1">
-                <x-input-label for="password" value="Senha" class="text-slate-200" />
-                <x-text-input id="password" class="block w-full bg-white/10 border-white/20 text-white focus:border-emerald-400 focus:ring-emerald-400" type="password" name="password" required autocomplete="new-password" />
-                <x-input-error :messages="$errors->get('password')" class="mt-1" />
-            </div>
-            <div class="space-y-1">
-                <x-input-label for="password_confirmation" value="Confirmar Senha" class="text-slate-200" />
-                <x-text-input id="password_confirmation" class="block w-full bg-white/10 border-white/20 text-white focus:border-emerald-400 focus:ring-emerald-400" type="password" name="password_confirmation" required autocomplete="new-password" />
-                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-1" />
-            </div>
-        </div>
-
-        <div class="flex items-center justify-between text-xs">
-            <a href="{{ route('login') }}" class="text-emerald-300 hover:text-emerald-200 transition">Já registrado?</a>
-            <button type="submit" class="inline-flex justify-center items-center gap-2 px-6 py-3 rounded-md bg-gradient-to-r from-emerald-500 to-indigo-600 text-white font-semibold shadow-lg shadow-emerald-600/30 hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-0 transition">
-                <span>Criar Conta</span>
-            </button>
-        </div>
-    </form>
-</x-guest-layout>
+              <!-- Actions: submit + link to login -->
+              <div class="col-span-2 flex flex-col md:flex-row gap-3">
+                <button type="submit" class="flex-1 py-3 rounded-md bg-teal-600 hover:bg-cyan-600 text-white font-semibold shadow-md border border-teal-700">Criar Conta</button>
+                <a href="{{ route('login') }}" class="flex-1 py-3 rounded-md bg-transparent text-white/80 font-semibold text-center border border-white/10 hover:bg-white/5">Já tenho conta</a>
+              </div>
+             </div>
+           </form>
+         </div>
+       </div>
+     </div>
+   </div>
+ </body>
+ </html>
