@@ -8,7 +8,7 @@ class PageController extends Controller
 {
     public function home()
     {
-        return view('home');
+        return view('pages.home');
     }
 
     public function comentarios()
@@ -24,5 +24,25 @@ class PageController extends Controller
     public function contato()
     {
         return view('pages.contato');
+    }
+
+    public function mapa()
+    {
+        return view('pages.mapa');
+    }
+
+    public function planos()
+    {
+        return view('pages.planos');
+    }
+
+    public function empresas()
+    {
+        return view('pages.empresas');
+    }
+
+    public function usuario()
+    {
+        return view('pages.usuario');
     }
 }
