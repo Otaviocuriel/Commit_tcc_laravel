@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Comentario;
 
 class PageController extends Controller
 {
@@ -73,7 +74,28 @@ class PageController extends Controller
 
     public function comentarios()
     {
-        return view('pages.comentarios');
+        $comentarios = Comentario::whereNull('parent_id')->with(['user','respostas.user'])->orderByDesc('created_at')->get();
+        return view('pages.comentarios', compact('comentarios'));
+    }
+
+    public function comentariosPost(Request $request)
+    {
+        $request->validate(['comentario' => 'required|string|max:500']);
+        Comentario::create([
+            'user_id' => auth()->id(),
+            'texto' => $request->comentario,
+            'parent_id' => $request->parent_id ?? null,
+        ]);
+        return redirect()->route('comentarios');
+    }
+
+    public function comentariosDelete($id)
+    {
+        $comentario = Comentario::findOrFail($id);
+    if ($comentario->user_id === auth()->id()) {
+            $comentario->delete();
+        }
+        return redirect()->route('comentarios');
     }
 
     public function servicos()

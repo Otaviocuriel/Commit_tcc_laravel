@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
-<div class="max-w-5xl mx-auto py-10 px-4">
+<div class="max-w-5xl mx-auto py-10 px-4 bg-black text-white rounded-xl shadow-lg">
   <h1 class="text-3xl font-bold mb-6 text-green-700">Tabela de Preços e Destinos de Energia</h1>
-  <p class="mb-8 text-gray-700">Veja as empresas fornecedoras, valores e para onde está indo a energia contratada. Contrate diretamente e acompanhe o destino!</p>
+  <p class="mb-8 text-gray-200">Veja as empresas fornecedoras, valores e para onde está indo a energia contratada. Contrate diretamente e acompanhe o destino!</p>
   <div class="overflow-x-auto">
-    <table class="min-w-full bg-white dark:bg-gray-900 rounded-lg shadow">
+    <table class="min-w-full bg-gray-800 rounded-lg shadow">
       <thead class="bg-green-600 text-white">
         <tr>
           <th class="py-3 px-4 text-left">Empresa</th>
@@ -15,7 +15,7 @@
           <th class="py-3 px-4 text-left">Ação</th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
+      <tbody class="divide-y divide-gray-700">
         <tr>
           <td class="py-3 px-4 font-semibold">Araras Solar</td>
           <td class="py-3 px-4">Araras</td>

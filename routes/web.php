@@ -1,3 +1,4 @@
+
 <?php
 
 use App\Http\Controllers\ProfileController;
@@ -8,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PageController::class,'home'])->name('home');
 
 Route::get('/comentarios', [PageController::class,'comentarios'])->name('comentarios');
+Route::post('/comentarios', [PageController::class,'comentariosPost'])->name('comentarios.post');
 Route::get('/servicos', [PageController::class,'servicos'])->name('servicos');
 Route::get('/contratar/{empresa}', [PageController::class,'contratar'])->name('contratar');
 Route::get('/contato', [PageController::class,'contato'])->name('contato');

@@ -11,9 +11,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="min-h-full bg-gray-950 text-gray-100 flex flex-col" x-data x-init="document.querySelectorAll('[data-mask]')?.forEach(el=>{el.addEventListener('input',e=>{let m=e.target.getAttribute('data-mask');let v=e.target.value.replace(/\D/g,'');if(m==='cpf'){v=v.slice(0,11).replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');}if(m==='cnpj'){v=v.slice(0,14).replace(/(\d{2})(\d)/,'$1.$2').replace(/(\d{2}).(\d{3})(\d)/,'$1.$2.$3').replace(/(\d{3}).(\d{3})(\d)/,'$1.$2/$3').replace(/(\d{4})(\d{1,2})$/,'$1-$2');}if(m==='cep'){v=v.slice(0,8).replace(/(\d{5})(\d)/,'$1-$2');}if(m==='telefone'){v=v.slice(0,11).replace(/(\d{2})(\d)/,'($1) $2').replace(/(\d{5})(\d{4})$/,'$1-$2');}e.target.value=v;});});">
+<body class="min-h-full bg-black text-white flex flex-col" x-data x-init="document.querySelectorAll('[data-mask]')?.forEach(el=>{el.addEventListener('input',e=>{let m=e.target.getAttribute('data-mask');let v=e.target.value.replace(/\D/g,'');if(m==='cpf'){v=v.slice(0,11).replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');}if(m==='cnpj'){v=v.slice(0,14).replace(/(\d{2})(\d)/,'$1.$2').replace(/(\d{2}).(\d{3})(\d)/,'$1.$2.$3').replace(/(\d{3}).(\d{3})(\d)/,'$1.$2/$3').replace(/(\d{4})(\d{1,2})$/,'$1-$2');}if(m==='cep'){v=v.slice(0,8).replace(/(\d{5})(\d)/,'$1-$2');}if(m==='telefone'){v=v.slice(0,11).replace(/(\d{2})(\d)/,'($1) $2').replace(/(\d{5})(\d{4})$/,'$1-$2');}e.target.value=v;});});">
     <!-- Navbar -->
-    <nav class="bg-green-900 text-white shadow-lg relative z-20 border-b border-green-800">
+    <nav class="bg-black text-white shadow-lg relative z-20 border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 items-center justify-between">
                 <div class="flex items-center gap-6">
@@ -67,9 +67,9 @@
         </div>
     </nav>
 
-    <main class="flex-1">
+    <main class="flex-1 bg-black text-white">
         @isset($header)
-            <div class="bg-white dark:bg-gray-800 shadow py-8 mb-4">
+            <div class="bg-black shadow py-8 mb-4">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">{{ $header }}</div>
             </div>
         @endisset
@@ -77,7 +77,7 @@
         @yield('content')
     </main>
 
-    <footer class="mt-12 bg-gradient-to-r from-slate-700 to-slate-600 text-white py-10 text-sm">
+    <footer class="mt-12 bg-black text-white py-10 text-sm border-t border-white/10">
         <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8">
             <div>
                 <h3 class="font-semibold mb-2">Sobre</h3>
