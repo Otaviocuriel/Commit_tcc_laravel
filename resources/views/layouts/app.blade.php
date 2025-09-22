@@ -7,7 +7,8 @@
     <title>{{ config('app.name','Blockchain Verde') }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    @vite(['resources/css/app.css','resources/js/app.js'])
+    {{-- @vite(['resources/css/app.css','resources/js/app.js']) --}}
+    <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="min-h-full bg-gray-950 text-gray-100 flex flex-col" x-data x-init="document.querySelectorAll('[data-mask]')?.forEach(el=>{el.addEventListener('input',e=>{let m=e.target.getAttribute('data-mask');let v=e.target.value.replace(/\D/g,'');if(m==='cpf'){v=v.slice(0,11).replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');}if(m==='cnpj'){v=v.slice(0,14).replace(/(\d{2})(\d)/,'$1.$2').replace(/(\d{2}).(\d{3})(\d)/,'$1.$2.$3').replace(/(\d{3}).(\d{3})(\d)/,'$1.$2/$3').replace(/(\d{4})(\d{1,2})$/,'$1-$2');}if(m==='cep'){v=v.slice(0,8).replace(/(\d{5})(\d)/,'$1-$2');}if(m==='telefone'){v=v.slice(0,11).replace(/(\d{2})(\d)/,'($1) $2').replace(/(\d{5})(\d{4})$/,'$1-$2');}e.target.value=v;});});">
@@ -21,12 +22,13 @@
                         Blockchain Verde
                     </a>
                     <div class="hidden md:flex items-center gap-4 text-sm">
-                        <x-nav-link :href="route('home')" :active="request()->routeIs('home')">Início</x-nav-link>
-                        <x-nav-link :href="route('comentarios')" :active="request()->routeIs('comentarios')">Comentários</x-nav-link>
-                        <x-nav-link :href="route('servicos')" :active="request()->routeIs('servicos')">Serviços</x-nav-link>
-                        <x-nav-link :href="route('contato')" :active="request()->routeIs('contato')">Contato</x-nav-link>
+                        <x-nav-link :href="route('home')" :active="request()->routeIs('home')" class="text-white">Início</x-nav-link>
+                        <x-nav-link :href="route('energia')" :active="request()->routeIs('energia')" class="text-white">Mapa de Energia</x-nav-link>
+                        <x-nav-link :href="route('comentarios')" :active="request()->routeIs('comentarios')" class="text-white">Comentários</x-nav-link>
+                        <x-nav-link :href="route('servicos')" :active="request()->routeIs('servicos')" class="text-white">Serviços</x-nav-link>
+                        <x-nav-link :href="route('contato')" :active="request()->routeIs('contato')" class="text-white">Contato</x-nav-link>
                         @auth
-                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">Dashboard</x-nav-link>
+                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-white">Dashboard</x-nav-link>
                         @endauth
                     </div>
                 </div>
@@ -50,6 +52,7 @@
     <div x-show="mobile" x-transition class="md:hidden border-t border-green-800 bg-green-900/95 backdrop-blur">
             <div class="px-4 py-3 space-y-2 text-sm">
                 <a href="{{ route('home') }}" class="block">Início</a>
+                <a href="{{ route('energia') }}" class="block">Mapa de Energia</a>
                 <a href="{{ route('comentarios') }}" class="block">Comentários</a>
                 <a href="{{ route('servicos') }}" class="block">Serviços</a>
                 <a href="{{ route('contato') }}" class="block">Contato</a>
@@ -84,6 +87,7 @@
                 <h3 class="font-semibold mb-2">Links</h3>
                 <ul class="space-y-1">
                     <li><a href="{{ route('home') }}" class="hover:underline">Início</a></li>
+                    <li><a href="{{ route('energia') }}" class="hover:underline">Mapa de Energia</a></li>
                     <li><a href="{{ route('comentarios') }}" class="hover:underline">Comentários</a></li>
                     <li><a href="{{ route('servicos') }}" class="hover:underline">Serviços</a></li>
                     <li><a href="{{ route('contato') }}" class="hover:underline">Contato</a></li>

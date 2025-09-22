@@ -1,6 +1,62 @@
 @extends('layouts.app')
 
 @section('content')
+<section class="bg-white dark:bg-gray-900 py-12 border-b border-gray-200 dark:border-gray-800">
+  <div class="max-w-4xl mx-auto px-6">
+    <h1 class="text-3xl md:text-4xl font-bold text-green-700 dark:text-green-400 mb-6 text-center">Bem-vindo ao nosso portal de Energia Renovável com Blockchain!</h1>
+    <p class="text-lg text-gray-700 dark:text-gray-200 mb-6 text-center">Este site foi desenvolvido para conectar empresas fornecedoras de energia renovável com usuários interessados na compra direta dessa energia, promovendo um ambiente seguro, transparente e sustentável.</p>
+    <div class="bg-green-50 dark:bg-green-900/30 rounded-xl p-6 mb-6 shadow">
+      <h2 class="text-2xl font-semibold text-green-800 dark:text-green-300 mb-4">Como funciona</h2>
+      <ul class="space-y-3 text-base text-gray-800 dark:text-gray-100">
+        <li>Visualizar todas as ofertas disponíveis e filtrar por preço, quantidade ou tipo de energia.</li>
+        <li>Consultar informações detalhadas das empresas fornecedoras, incluindo histórico e avaliações.</li>
+        <li>Enviar pedidos de compra diretamente pela plataforma.</li>
+        <li>Deixar comentários ou mensagens nas ofertas para tirar dúvidas ou negociar condições.</li>
+        <li>Registrar vendas na blockchain para garantir rastreabilidade e segurança.</li>
+      </ul>
+    </div>
+    <div class="grid md:grid-cols-4 gap-8 mt-8">
+      <div class="rounded-xl shadow-lg p-7 bg-gradient-to-br from-emerald-100 to-white dark:from-emerald-900 dark:to-gray-900 flex flex-col items-center text-center">
+        <div class="text-5xl mb-3">👤</div>
+        <h3 class="font-bold text-lg mb-2 text-emerald-700 dark:text-emerald-300">Usuário Comprador</h3>
+        <p class="mb-2 text-gray-700 dark:text-gray-200">Compre energia renovável direto das empresas, com segurança e rastreabilidade.</p>
+        <ul class="list-none text-sm text-gray-800 dark:text-gray-100 space-y-1">
+          <li>• Ofertas filtráveis</li>
+          <li>• Histórico e avaliações</li>
+          <li>• Comentários e negociação</li>
+        </ul>
+      </div>
+      <div class="rounded-xl shadow-lg p-7 bg-gradient-to-br from-yellow-100 to-white dark:from-yellow-900 dark:to-gray-900 flex flex-col items-center text-center">
+        <div class="text-5xl mb-3">🏭</div>
+        <h3 class="font-bold text-lg mb-2 text-yellow-700 dark:text-yellow-300">Empresa Fornecedora</h3>
+        <p class="mb-2 text-gray-700 dark:text-gray-200">Venda energia renovável, publique ofertas e conquiste confiança no mercado.</p>
+        <ul class="list-none text-sm text-gray-800 dark:text-gray-100 space-y-1">
+          <li>• Gestão de ofertas</li>
+          <li>• Resposta a pedidos</li>
+          <li>• Registro na blockchain</li>
+        </ul>
+      </div>
+      <div class="rounded-xl shadow-lg p-7 bg-gradient-to-br from-indigo-100 to-white dark:from-indigo-900 dark:to-gray-900 flex flex-col items-center text-center">
+        <div class="text-5xl mb-3">💹</div>
+        <h3 class="font-bold text-lg mb-2 text-indigo-700 dark:text-indigo-300">Investidor</h3>
+        <p class="mb-2 text-gray-700 dark:text-gray-200">Invista em projetos de energia renovável e acompanhe indicadores ESG.</p>
+        <ul class="list-none text-sm text-gray-800 dark:text-gray-100 space-y-1">
+          <li>• Portfólio sustentável</li>
+          <li>• Indicadores verdes</li>
+        </ul>
+      </div>
+      <div class="rounded-xl shadow-lg p-7 bg-gradient-to-br from-pink-100 to-white dark:from-pink-900 dark:to-gray-900 flex flex-col items-center text-center">
+        <div class="text-5xl mb-3">🔬</div>
+        <h3 class="font-bold text-lg mb-2 text-pink-700 dark:text-pink-300">Pesquisador</h3>
+        <p class="mb-2 text-gray-700 dark:text-gray-200">Acesse dados, estudos e relatórios sobre energia e blockchain.</p>
+        <ul class="list-none text-sm text-gray-800 dark:text-gray-100 space-y-1">
+          <li>• Métricas abertas</li>
+          <li>• Relatórios técnicos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 {{-- HERO SECTION --}}
 <section class="relative overflow-hidden">
   <div class="absolute inset-0">

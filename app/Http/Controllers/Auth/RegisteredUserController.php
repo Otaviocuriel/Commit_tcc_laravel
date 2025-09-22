@@ -40,7 +40,7 @@ class RegisteredUserController extends Controller
             'role' => ['required','in:user,company'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'confirmed', 'min:6'],
             'telefone' => ['nullable','string','max:20'],
             'cep' => ['nullable','string','max:10'],
         ];
@@ -70,8 +70,7 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+    // Não autentica automaticamente, apenas salva e redireciona para login
+    return redirect()->route('login')->with('status', 'Cadastro realizado com sucesso! Faça login para continuar.');
     }
 }
