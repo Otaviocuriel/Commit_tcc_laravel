@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>{{ config('app.name','Blockchain Verde') }} – Acesso</title>
+        <title>Energia Renovável – Acesso</title>
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <!-- Fallback temporário: CDN do Tailwind e Alpine para quando o Vite não estiver rodando -->
@@ -25,7 +25,7 @@
         <div class="px-6 pt-6 flex items-center justify-between max-w-7xl mx-auto w-full">
             <a href="{{ route('home') }}" class="flex items-center gap-3 text-lg font-bold text-white/90 hover:text-white transition">
                 <img src="{{ asset('Imagens/minha_logo.png') }}" alt="Logo" class="w-10 h-10 object-contain" />
-                Blockchain Verde
+                Energia Renovável
             </a>
             @if (Route::has('login'))
                 <div class="hidden sm:flex gap-4 text-xs">
