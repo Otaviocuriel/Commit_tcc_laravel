@@ -17,7 +17,6 @@ $width = match ($width) {
     <div @click="open = ! open">
         {{ $trigger }}
     </div>
-
     <div x-show="open"
             x-transition:enter="transition ease-out duration-200"
             x-transition:enter-start="opacity-0 scale-95"
@@ -32,4 +31,5 @@ $width = match ($width) {
             {{ $content }}
         </div>
     </div>
+</div>
 </div>

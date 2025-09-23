@@ -15,7 +15,7 @@
       <p><strong>Preço:</strong> R$ {{ $servico['preco'] }}</p>
       <p><strong>Destino:</strong> {{ $servico['destino'] }}</p>
     </div>
-  <form method="POST" action="{{ route('contratar.post', ['empresa' => $servico['empresa']]) }}">
+    <form method="POST" action="{{ route('contratar.confirmar', $servico['id']) }}">
       @csrf
       <button type="submit" class="w-full py-3 rounded-md bg-green-600 hover:bg-green-700 text-white font-semibold shadow">Confirmar Contratação</button>
     </form>

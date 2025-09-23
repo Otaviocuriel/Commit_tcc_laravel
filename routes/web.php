@@ -36,5 +36,6 @@ Route::match(['get', 'post'], '/contratar/{empresa}', [PageController::class,'co
 Route::put('/comentarios/{id}', [ComentarioController::class, 'update'])->name('comentarios.update');
 Route::get('/comentarios/{id}/edit', [ComentarioController::class, 'edit'])->name('comentarios.edit');
 Route::delete('/comentarios/{id}', [ComentarioController::class, 'destroy'])->name('comentarios.delete');
+Route::post('/contratar/{empresa}/confirmar', [App\Http\Controllers\ContratacaoController::class, 'confirmar'])->name('contratar.confirmar');
 require __DIR__.'/auth.php';
 

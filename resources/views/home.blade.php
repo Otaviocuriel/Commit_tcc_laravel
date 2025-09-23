@@ -57,7 +57,6 @@
     </div>
   </div>
 </section>
-{{-- HERO SECTION --}}
 <section class="relative overflow-hidden">
   <div class="absolute inset-0">
     <div class="absolute inset-0 bg-slate-900/70 backdrop-blur-[1px]"></div>
@@ -124,7 +123,6 @@
   </div>
 </section>
 
-{{-- PASSOS --}}
 <section class="py-24 bg-white dark:bg-gray-950 relative overflow-hidden">
   <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_30%_20%,rgba(16,185,129,0.07),transparent_60%)]"></div>
   <div class="max-w-7xl mx-auto px-6">
@@ -158,7 +156,6 @@
   </div>
 </section>
 
-{{-- IMPACTO --}}
 <section class="py-24 bg-gradient-to-b from-slate-900 to-slate-800 text-white relative overflow-hidden">
   <div class="absolute inset-0 opacity-20 bg-[linear-gradient(45deg,#334155_25%,transparent_25%,transparent_50%,#334155_50%,#334155_75%,transparent_75%,transparent)] bg-[length:16px_16px]"></div>
   <div class="max-w-7xl mx-auto px-6 relative">
@@ -194,7 +191,6 @@
   </div>
 </section>
 
-{{-- CTA FINAL --}}
 <section class="py-24 relative bg-white dark:bg-gray-950">
   <div class="max-w-5xl mx-auto px-6 text-center">
     <h2 class="text-3xl md:text-4xl font-bold mb-6">Pronto para ajudar a transformar a matriz energética?</h2>
@@ -203,6 +199,10 @@
       <a href="{{ route('register') }}" class="px-10 py-4 rounded-md bg-indigo-600 hover:bg-indigo-500 text-white font-semibold shadow-lg shadow-indigo-600/30 transition">Criar Conta</a>
     @else
       <a href="{{ route('dashboard') }}" class="px-10 py-4 rounded-md bg-emerald-600 hover:bg-emerald-500 text-white font-semibold shadow-lg shadow-emerald-600/30 transition">Ir para Dashboard</a>
+    @endguest
+  </div>
+</section>
+@endsection
     @endguest
   </div>
 </section>
