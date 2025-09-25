@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 <div class="max-w-xl mx-auto py-10 px-4 bg-gray-900 text-white rounded-xl shadow-lg">
   <h1 class="text-2xl font-bold mb-6 text-green-700">Confirmar Contratação</h1>
@@ -15,21 +16,20 @@
         <p><strong>Tipo de Energia:</strong> {{ $servico['tipo'] ?? 'N/A' }}</p>
         <p><strong>Preço:</strong> R$ {{ $servico['preco'] ?? 'N/A' }}</p>
         <p><strong>Destino:</strong> {{ $servico['destino'] ?? 'N/A' }}</p>
-        @if(auth()->check() && auth()->user()->role === 'admin' && isset($servico['empresa_id']))
-          <form method="POST" action="/admin/empresa/{{ $servico['empresa_id'] }}" onsubmit="return confirm('Excluir esta empresa?')">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="mt-2 px-4 py-2 bg-red-600 text-white rounded">Excluir Empresa</button>
-          </form>
-        @endif
       </div>
-      @if(isset($servico['id']))
-        <form method="POST" action="{{ route('contratar.confirmar', $servico['id']) }}">
-          @csrf
-          <button type="submit" class="w-full py-3 rounded-md bg-green-600 hover:bg-green-700 text-white font-semibold shadow">Confirmar Contratação</button>
-        </form>
+      @if(!empty($servico['website']))
+        <a href="{{ $servico['website'] }}" target="_blank" class="w-full block py-3 rounded-md bg-green-600 hover:bg-green-700 text-white font-semibold shadow text-center">
+          Ir para o site da empresa
+        </a>
       @else
-        <p class="text-red-500">ID do serviço não encontrado. Não é possível contratar.</p>
+        <p class="text-red-500">Esta empresa não possui site cadastrado.</p>
+      @endif
+    </div>
+  @else
+    <p class="text-red-500">Serviço não encontrado.</p>
+  @endif
+</div>
+@endsection
       @endif
     </div>
   @else
