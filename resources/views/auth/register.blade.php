@@ -52,8 +52,7 @@
   <div class="w-full max-w-3xl mx-auto p-6">
     <div class="card-glass backdrop-blur-lg rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
       <div class="grid grid-cols-12">
-  <!-- ...existing code... -->
-  <div class="col-span-12 md:col-span-5 bg-gradient-to-b from-slate-900/60 to-teal-900/40 p-8 flex flex-col items-center justify-center">
+        <div class="col-span-12 md:col-span-5 bg-gradient-to-b from-slate-900/60 to-teal-900/40 p-8 flex flex-col items-center justify-center">
           <div class="w-20 h-20 rounded-xl bg-gradient-to-br from-teal-400 to-cyan-600 flex items-center justify-center text-white mb-4">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           </div>
@@ -88,7 +87,6 @@
                   </label>
                 </div>
               </div>
-
               <div>
                 <label class="block text-sm text-white/80">Email</label>
                 <input name="email" type="email" class="mt-1 w-full px-3 py-2 rounded-md bg-slate-800 text-white border border-white/5" required>
@@ -97,26 +95,26 @@
                 <label class="block text-sm text-white/80">Telefone</label>
                 <input name="telefone" type="text" maxlength="15" data-mask="telefone" class="mt-1 w-full px-3 py-2 rounded-md bg-slate-800 text-white border border-white/5">
               </div>
-
               <div>
                 <label class="block text-sm text-white/80">CEP</label>
-                <input name="cep" type="text" class="mt-1 w-full px-3 py-2 rounded-md bg-slate-800 text-white border border-white/5">
+                <input name="cep" id="cep" type="text" maxlength="9" class="mt-1 w-full px-3 py-2 rounded-md bg-slate-800 text-white border border-white/5" placeholder="Digite o CEP" required>
+              </div>
+              <div x-cloak x-show="role==='company'" x-transition class="col-span-2">
+                <label class="block text-sm text-white/80">Endereço</label>
+                <input name="endereco" id="endereco" type="text" class="mt-1 w-full px-3 py-2 rounded-md bg-slate-800 text-white border border-white/5" readonly>
               </div>
               <div>
                 <label class="block text-sm text-white/80">Data de Nascimento</label>
                 <input name="data_nascimento" type="date" class="mt-1 w-full px-3 py-2 rounded-md bg-slate-800 text-white border border-white/5">
               </div>
-
               <div x-cloak x-show="role==='user'" x-transition class="col-span-2">
                 <label class="block text-sm text-white/80">CPF</label>
                 <input name="cpf" type="text" maxlength="14" data-mask="cpf" class="mt-1 w-full px-3 py-2 rounded-md bg-slate-800 text-white border border-white/5">
               </div>
-
               <div x-cloak x-show="role==='company'" x-transition class="col-span-2">
                 <label class="block text-sm text-white/80">CNPJ</label>
                 <input name="cnpj" type="text" maxlength="18" data-mask="cnpj" class="mt-1 w-full px-3 py-2 rounded-md bg-slate-800 text-white border border-white/5">
               </div>
-
               <div class="col-span-2 grid grid-cols-2 gap-3 items-end">
                 <div>
                   <label class="block text-sm text-white/80">Senha</label>
@@ -127,7 +125,6 @@
                   <input name="password_confirmation" type="password" class="mt-1 w-full px-3 py-2 rounded-md bg-slate-800 text-white border border-white/5" required>
                 </div>
               </div>
-
               <!-- Actions: submit + link to login -->
               <div class="col-span-2 flex flex-col md:flex-row gap-3">
                 <button type="submit" class="flex-1 py-3 rounded-md bg-teal-600 hover:bg-cyan-600 text-white font-semibold shadow-md border border-teal-700">Criar Conta</button>
@@ -139,5 +136,33 @@
        </div>
      </div>
    </div>
+   <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const cepInput = document.getElementById('cep');
+  const enderecoInput = document.getElementById('endereco');
+  if (cepInput) {
+    cepInput.addEventListener('blur', function() {
+      const cep = cepInput.value.replace(/\D/g, '');
+      if (cep.length === 8) {
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+          .then(response => response.json())
+          .then(data => {
+            if (!data.erro) {
+              enderecoInput.value = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
+            } else {
+              enderecoInput.value = '';
+            }
+          });
+      } else {
+        enderecoInput.value = '';
+      }
+    });
+  }
+});
+</script>
+ </body>
+ </html>
+});
+</script>
  </body>
  </html>

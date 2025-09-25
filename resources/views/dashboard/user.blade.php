@@ -10,9 +10,13 @@
     <div class="p-5 bg-white dark:bg-gray-800 rounded shadow">
       <h2 class="font-semibold mb-2">Seus Serviços Contratados</h2>
       <ul class="text-sm">
-        @foreach($user->servicos as $servico)
-          <li>{{ $servico->empresa->nome }} - {{ $servico->status }}</li>
-        @endforeach
+        @if(!empty($user->servicos) && (is_array($user->servicos) || $user->servicos instanceof \Illuminate\Support\Collection))
+          @foreach($user->servicos as $servico)
+            <li>{{ $servico->empresa->nome }} - {{ $servico->status }}</li>
+          @endforeach
+        @else
+          <li>Nenhum serviço contratado.</li>
+        @endif
       </ul>
     </div>
     <div class="p-5 bg-white dark:bg-gray-800 rounded shadow">

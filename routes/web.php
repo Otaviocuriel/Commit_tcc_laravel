@@ -5,6 +5,9 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ComentarioController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 Route::get('/', [PageController::class,'home'])->name('home');
 
@@ -37,5 +40,81 @@ Route::put('/comentarios/{id}', [ComentarioController::class, 'update'])->name('
 Route::get('/comentarios/{id}/edit', [ComentarioController::class, 'edit'])->name('comentarios.edit');
 Route::delete('/comentarios/{id}', [ComentarioController::class, 'destroy'])->name('comentarios.delete');
 Route::post('/contratar/{empresa}/confirmar', [App\Http\Controllers\ContratacaoController::class, 'confirmar'])->name('contratar.confirmar');
+Route::get('/ofertas', [App\Http\Controllers\OfertaController::class, 'index'])->name('ofertas.index');
+Route::post('/ofertas/{oferta}/contratar', [App\Http\Controllers\OfertaController::class, 'contratar'])
+    ->name('ofertas.contratar')
+    ->middleware('auth');
+Route::get('/mapa-empresas', function() {
+    $empresas = \App\Models\User::where('role', 'company')
+        ->whereNotNull('latitude')
+        ->whereNotNull('longitude')
+        ->get();
+    return view('mapa.empresas', compact('empresas'));
+})->name('mapa.empresas');
+
+// Excluir empresa (apenas admin)
+Route::delete('/admin/empresa/{id}', function($id) {
+    $user = Auth::user();
+    if (!$user || $user->role !== 'admin') {
+        abort(403);
+    }
+    \App\Models\User::where('id', $id)->where('role', 'company')->delete();
+    return response()->noContent();
+})->middleware('auth');
+
+// Excluir comentário (apenas admin)
+Route::delete('/admin/comentario/{id}', function($id) {
+    $user = Auth::user();
+    if (!$user || $user->role !== 'admin') {
+        abort(403);
+    }
+    \App\Models\Comentario::where('id', $id)->delete();
+    return response()->noContent();
+})->middleware('auth');
+
+Route::post('/empresa/site/update', function(Request $request) {
+    $user = auth()->user();
+    if ($user && $user->role === 'company') {
+        $request->validate([
+            'website' => 'required|url|max:255'
+        ]);
+        $user->website = $request->website;
+        $user->save();
+        return back()->with('success', 'Site atualizado com sucesso!');
+    }
+    abort(403);
+})->name('empresa.site.update')->middleware('auth');
+
+Route::post('/empresa/endereco/update', function(Request $request) {
+    $user = auth()->user();
+    if ($user && $user->role === 'company') {
+        $request->validate([
+            'endereco' => 'required|string|max:255'
+        ]);
+        $user->endereco = $request->endereco;
+
+        // Geocodificação usando Nominatim (OpenStreetMap)
+        $response = Http::get('https://nominatim.openstreetmap.org/search', [
+            'q' => $user->endereco,
+            'format' => 'json',
+            'limit' => 1,
+        ]);
+        if ($response->ok() && count($response->json()) > 0) {
+            $geo = $response->json()[0];
+            $user->latitude = $geo['lat'];
+            $user->longitude = $geo['lon'];
+        } else {
+            $user->latitude = null;
+            $user->longitude = null;
+        }
+
+        $user->save();
+        return back()->with('success', 'Endereço atualizado e empresa posicionada no mapa!');
+    }
+    abort(403);
+})->name('empresa.endereco.update')->middleware('auth');
+
+require __DIR__.'/auth.php';
+
 require __DIR__.'/auth.php';
 

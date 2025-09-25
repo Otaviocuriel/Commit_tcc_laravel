@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use Illuminate\Support\Facades\Http;
 
 class RegisterController extends Controller
 {
@@ -35,12 +36,44 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
+        $latitude = null;
+        $longitude = null;
+
+        // Geocodifica endereço se for empresa e endereço estiver preenchido
+        if (($data['role'] ?? '') === 'company' && !empty($data['endereco'])) {
+            $response = Http::get('https://nominatim.openstreetmap.org/search', [
+                'q' => $data['endereco'],
+                'format' => 'json',
+                'limit' => 1,
+            ]);
+            if ($response->ok() && count($response->json()) > 0) {
+                $geo = $response->json()[0];
+                $latitude = $geo['lat'];
+                $longitude = $geo['lon'];
+            }
+        }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'cpf' => $data['cpf'],
             'telefone' => $data['telefone'],
             'password' => bcrypt($data['password']),
+            'website' => $data['website'] ?? null,
+            'cep' => $data['cep'] ?? null,
+            'endereco' => $data['endereco'] ?? null,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
         ]);
+    }
+
+    public function redirectPath()
+    {
+        // Se empresa, vai para o mapa
+        if (auth()->user()->role === 'company') {
+            return route('mapa.empresas');
+        }
+
+        return $this->redirectTo;
     }
 }
