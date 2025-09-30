@@ -1,4 +1,4 @@
-@extends('layouts.app')
+  @extends('layouts.app')
 
 @section('content')
 <div class="max-w-xl mx-auto py-10 px-4 bg-gray-900 text-white rounded-xl shadow-lg">
@@ -8,6 +8,7 @@
       <strong>{{ $mensagem }}</strong>
     </div>
   @endif
+
   @if(isset($servico) && is_array($servico))
     <div class="bg-gray-800 rounded-lg shadow p-6 mb-6">
       <h2 class="font-bold text-lg text-green-700 mb-2">{{ $servico['empresa'] }}</h2>
@@ -23,13 +24,6 @@
         </a>
       @else
         <p class="text-red-500">Esta empresa não possui site cadastrado.</p>
-      @endif
-    </div>
-  @else
-    <p class="text-red-500">Serviço não encontrado.</p>
-  @endif
-</div>
-@endsection
       @endif
     </div>
   @else
