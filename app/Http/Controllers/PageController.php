@@ -35,6 +35,40 @@ class PageController extends Controller
         ],
     ];
 
+    // NOVOS MÉTODOS PARA CADASTRO DE EMPRESA
+    public function empresaCreate() {
+        return view('pages.empresa_create');
+    }
+
+    public function empresaStore(Request $request) {
+        // Validação (ajuste conforme seu banco)
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'cnpj' => 'required',
+            'telefone' => 'required',
+            'cargo' => 'required',
+            'cep' => 'required',
+            'lat' => 'nullable',
+            'lon' => 'nullable',
+        ]);
+
+        // Salvar no banco (ajuste para seu modelo, ex: User ou Empresa)
+        $empresa = new \App\Models\User(); // ou use seu model Empresa
+        $empresa->name = $request->name;
+        $empresa->email = $request->email;
+        $empresa->cnpj = $request->cnpj;
+        $empresa->telefone = $request->telefone;
+        $empresa->cargo = $request->cargo;
+        $empresa->cep = $request->cep;
+        $empresa->latitude = $request->lat;
+        $empresa->longitude = $request->lon;
+        $empresa->role = 'company';
+        $empresa->save();
+
+        return redirect()->route('empresas')->with('success', 'Empresa cadastrada com sucesso!');
+    }
+
     public function contratarPost(Request $request, $empresa)
     {
         $servico = $this->servicos[$empresa] ?? null;
