@@ -11,8 +11,23 @@
     {{-- @vite(['resources/css/app.css','resources/js/app.js']) --}}
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Aplica tema imediatamente (antes do render) para evitar flash -->
+    <script>
+        (function(){
+            try {
+                var t = localStorage.getItem('site-theme-choice');
+                if (t) {
+                    document.documentElement.classList.add(t === 'dark' ? 'theme-dark' : 'theme-light');
+                } else {
+                    document.documentElement.classList.add('theme-light');
+                }
+            } catch (e) { /* localStorage pode falhar */ }
+        })();
+    </script>
 </head>
 <body class="min-h-full bg-black text-white flex flex-col" x-data x-init="document.querySelectorAll('[data-mask]')?.forEach(el=>{el.addEventListener('input',e=>{let m=e.target.getAttribute('data-mask');let v=e.target.value.replace(/\D/g,'');if(m==='cpf'){v=v.slice(0,11).replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');}if(m==='cnpj'){v=v.slice(0,14).replace(/(\d{2})(\d)/,'$1.$2').replace(/(\d{2}).(\d{3})(\d)/,'$1.$2.$3').replace(/(\d{3}).(\d{3})(\d)/,'$1.$2/$3').replace(/(\d{4})(\d{1,2})$/,'$1-$2');}if(m==='cep'){v=v.slice(0,8).replace(/(\d{5})(\d)/,'$1-$2');}if(m==='telefone'){v=v.slice(0,11).replace(/(\d{2})(\d)/,'($1) $2').replace(/(\d{5})(\d{4})$/,'$1-$2');}e.target.value=v;});});">
+    @include('partials.theme-toggle') <!-- inserir logo após <body> -->
     <!-- Navbar -->
     <nav class="bg-black text-white shadow-lg relative z-20 border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

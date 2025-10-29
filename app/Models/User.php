@@ -63,4 +63,9 @@ class User extends Authenticatable
     {
         return $this->role === 'company' ? $this->cnpj : $this->cpf;
     }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new \App\Notifications\QueuedResetPassword($token));
+    }
 }

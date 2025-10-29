@@ -1,0 +1,35 @@
+/* Temas */
+body.theme-light { background: #ffffff; color: #0b0b0b; transition: background-color .25s, color .25s; }
+body.theme-dark  { background: #000000; color: #ffffff; transition: background-color .25s, color .25s; }
+
+/* Ajustes globais opcionais para links, cards etc. */
+body.theme-dark a { color: #9fd6ff; }
+body.theme-light a { color: #0066cc; }
+
+/* Toggle UI */
+.theme-toggle-wrap { position: fixed; top: 12px; right: 12px; z-index: 1000; }
+.theme-toggle { display:flex; gap:8px; align-items:center; background: rgba(255,255,255,0.04); padding:6px; border-radius:8px; backdrop-filter: blur(6px); }
+.theme-btn {
+	background: transparent;
+	border: none;
+	padding:6px;
+	display:inline-flex;
+	align-items:center;
+	justify-content:center;
+	cursor:pointer;
+	color: inherit;
+	border-radius:6px;
+	transition: transform .08s, background-color .12s;
+}
+.theme-btn:hover { transform: translateY(-2px); background: rgba(255,255,255,0.03); }
+.theme-btn:active { transform: translateY(0); }
+
+/* Indicate selected */
+.theme-btn[aria-pressed="true"] {
+	outline: 2px solid rgba(255,255,255,0.12);
+	box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+	background: rgba(255,255,255,0.04);
+}
+
+/* Ensure icons inherit color (white on dark, dark on light) */
+.theme-btn svg { display:block; color: currentColor; }
