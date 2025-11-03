@@ -1,0 +1,46 @@
+%% Diagrama ER do TCC - Commit_tcc_laravel
+ erDiagram
+ USERS {
+ BIGINT id PK
+ VARCHAR name
+ VARCHAR email UNIQUE
+ VARCHAR password
+ VARCHAR website
+ DECIMAL latitude
+ DECIMAL longitude
+ VARCHAR cidade
+ VARCHAR tipo_energia
+ TIMESTAMP created_at
+ TIMESTAMP updated_at
+ }
+ OFERTAS {
+ BIGINT id PK
+ BIGINT user_id FK
+ VARCHAR titulo
+ TEXT descricao
+ DECIMAL preco
+ VARCHAR status
+ TIMESTAMP created_at
+ TIMESTAMP updated_at
+ }
+ COMENTARIOS {
+ BIGINT id PK
+ BIGINT oferta_id FK
+ BIGINT user_id FK
+ TEXT conteudo
+ INT likes_count
+ TIMESTAMP created_at
+ TIMESTAMP updated_at
+ }
+ SERVICOS {
+ BIGINT id PK
+ VARCHAR nome
+ TEXT descricao
+ TIMESTAMP created_at
+ TIMESTAMP updated_at
+ }
+ %% Relações
+ USERS ||--o{ OFERTAS : "cria"
+ OFERTAS ||--o{ COMENTARIOS : "tem"
+ USERS ||--o{ COMENTARIOS : "faz"
+ SERVICOS ||--o{ OFERTAS : "pode_ser"
