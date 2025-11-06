@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\BlockchainController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -173,5 +174,19 @@ Route::post('/empresa/endereco/update', function(Request $request) {
     }
     abort(403);
 })->name('empresa.endereco.update')->middleware('auth');
+
+// Endpoint que retorna ABI e contract address
+Route::get('/blockchain/contract-info', [BlockchainController::class, 'contractInfo'])->name('blockchain.contract.info');
+
+// Recebe confirmação do frontend para persistir o registro localmente (requer auth)
+Route::post('/blockchain/record', [BlockchainController::class, 'record'])
+    ->middleware('auth')
+    ->name('blockchain.record');
+
+// Página pública para clientes interagirem com a blockchain
+Route::get('/blockchain', [PageController::class, 'blockchain'])->name('blockchain.page');
+
+// API pública para listar transações (público)
+Route::get('/blockchain/transactions', [BlockchainController::class, 'transactions'])->name('blockchain.transactions');
 
 require __DIR__.'/auth.php';

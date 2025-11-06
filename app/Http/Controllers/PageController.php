@@ -151,4 +151,10 @@ class PageController extends Controller
     {
         return view('pages.energia');
     }
+
+    // Nova rota: página que oferece UI para clientes usarem a blockchain
+    public function blockchain()
+    {
+        return view('pages.blockchain');
+    }
 }

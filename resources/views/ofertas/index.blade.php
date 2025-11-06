@@ -39,18 +39,20 @@
                         </div>
                     </div>
                     
-                    @auth
-                        <button 
-                            onclick="contratarOferta({{ $oferta->id }})"
-                            class="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg transition-colors duration-200"
-                        >
-                            Fazer Contratação
-                        </button>
-                    @else
-                        <a href="{{ route('login') }}" class="block w-full py-3 px-4 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-lg text-center transition-colors duration-200">
-                            Entre para Contratar
-                        </a>
-                    @endauth
+                    <div class="py-3 px-4">
+                        @auth
+                            <button 
+                                onclick="contratarOferta({{ $oferta->id }}, '{{ addslashes($oferta->titulo) }}', '{{ $oferta->empresa->website ?? '' }}', '{{ number_format($oferta->preco_kwh, 2, ',', '.') }}')"
+                                class="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg transition-colors duration-200"
+                            >
+                                Fazer Contratação
+                            </button>
+                        @else
+                            <a href="{{ route('login') }}" class="block w-full py-3 px-4 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-lg text-center transition-colors duration-200">
+                                Entre para Contratar
+                            </a>
+                        @endauth
+                    </div>
                 </div>
             </div>
         @empty
@@ -71,29 +73,29 @@
 
 @auth
 <script>
-async function contratarOferta(ofertaId) {
+async function contratarOferta(ofertaId, empresa, website, preco) {
     try {
-        const response = await fetch(`/ofertas/${ofertaId}/contratar`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        const res = await window.blockchainContractFlow({
+            ofertaId: ofertaId,
+            empresa: empresa,
+            price: preco,
+            onSuccess: function(r) {
+                alert('Transação confirmada na blockchain. TX: ' + r.txHash);
+            },
+            onError: function(err) {
+                alert('Erro na transação: ' + (err.message || err));
             }
         });
 
-        const data = await response.json();
-
-        if (response.ok && data.website) {
-            // Confirmar antes de redirecionar
-            if (confirm(`Você será redirecionado para o site da empresa ${data.empresa}. Deseja continuar?`)) {
-                window.open(data.website, '_blank');
+        if (website) {
+            if (confirm(`Você será redirecionado para o site da empresa ${empresa}. Deseja continuar?`)) {
+                window.open(website, '_blank');
             }
         } else {
-            alert(data.message || 'Esta empresa não possui um site cadastrado para contratação.');
+            alert('Empresa não possui site cadastrado.');
         }
-    } catch (error) {
-        console.error('Erro ao processar contratação:', error);
-        alert('Erro ao processar a solicitação. Tente novamente.');
+    } catch (e) {
+        console.error(e);
     }
 }
 </script>

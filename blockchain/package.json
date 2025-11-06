@@ -1,0 +1,21 @@
+{
+  "name": "blockchain",
+  "version": "1.0.0",
+  "description": "Hardhat project to deploy EnergyAudit.sol",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy:goerli": "hardhat run deploy.js --network goerli",
+    "deploy:sepolia": "hardhat run deploy.js --network sepolia",
+    "test": "hardhat test",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.3.0",
+    "dotenv": "^16.0.0",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.12.0",
+    "eslint": "^8.0.0",
+    "prettier": "^2.0.0"
+  }
+}

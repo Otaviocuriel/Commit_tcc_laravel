@@ -43,6 +43,7 @@
                         <x-nav-link :href="route('comentarios')" :active="request()->routeIs('comentarios')" class="text-white">Comentários</x-nav-link>
                         <x-nav-link :href="route('servicos')" :active="request()->routeIs('servicos')" class="text-white">Serviços</x-nav-link>
                         <x-nav-link :href="route('contato')" :active="request()->routeIs('contato')" class="text-white">Contato</x-nav-link>
+                        <x-nav-link :href="route('blockchain.page')" :active="request()->routeIs('blockchain.page')" class="text-white">Blockchain</x-nav-link>
                         @auth
                             <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-white">Dashboard</x-nav-link>
                         @endauth
@@ -72,6 +73,7 @@
                 <a href="{{ route('comentarios') }}" class="block">Comentários</a>
                 <a href="{{ route('servicos') }}" class="block">Serviços</a>
                 <a href="{{ route('contato') }}" class="block">Contato</a>
+                <a href="{{ route('blockchain.page') }}" class="block">Blockchain</a>
                 @auth <a href="{{ route('dashboard') }}" class="block">Dashboard</a> @endauth
                 @guest
                     <a href="{{ route('login') }}" class="block">Login</a>
@@ -107,6 +109,7 @@
                     <li><a href="{{ route('comentarios') }}" class="hover:underline">Comentários</a></li>
                     <li><a href="{{ route('servicos') }}" class="hover:underline">Serviços</a></li>
                     <li><a href="{{ route('contato') }}" class="hover:underline">Contato</a></li>
+                    <li><a href="{{ route('blockchain.page') }}" class="hover:underline">Blockchain</a></li>
                 </ul>
             </div>
             <div>
@@ -118,5 +121,19 @@
             &copy; {{ date('Y') }} Blockchain Verde. Todos os direitos reservados.
         </div>
     </footer>
+
+    <!-- Expor autenticação ao JS -->
+    <script>
+        // disponível para scripts do frontend; true se usuário logado no Laravel
+        window.Laravel = {
+            isAuthenticated: @json(auth()->check())
+        };
+    </script>
+
+    <!-- Adicionado: ethers.js + script de integração blockchain -->
+    <script>window.ethersLoaded = false;</script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+    <script>window.ethersLoaded = typeof ethers !== 'undefined';</script>
+    <script src="{{ asset('js/blockchain.js') }}"></script>
 </body>
 </html>
