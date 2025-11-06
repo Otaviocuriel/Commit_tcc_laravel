@@ -57,7 +57,7 @@ class CreatePostsAndTriggers extends Migration
                     NULL,
                     NOW()
                 );
-            END
+            END;
         ");
 
         
@@ -89,7 +89,7 @@ class CreatePostsAndTriggers extends Migration
                     NULL,
                     NOW()
                 );
-            END
+            END;
         ");
 
         
@@ -114,11 +114,10 @@ class CreatePostsAndTriggers extends Migration
                     NULL,
                     NOW()
                 );
-            END
+            END;
         ");
     }
 
-   /
     public function down()
     {
         DB::unprepared('DROP TRIGGER IF EXISTS trg_posts_after_insert;');
