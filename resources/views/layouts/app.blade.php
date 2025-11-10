@@ -12,7 +12,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    <!-- Aplica tema imediatamente (antes do render) para evitar flash -->
+    
+    <script>
+        if (typeof window.ethers === 'undefined') {
+            window.ethers = {}; 
+            console.warn('[metamask-shim] window.ethers placeholder criado no <head>');
+        }
+        if (typeof ethers === 'undefined') {
+            var ethers = window.ethers;
+        }
+    </script>
+
     <script>
         (function(){
             try {
@@ -22,20 +32,19 @@
                 } else {
                     document.documentElement.classList.add('theme-light');
                 }
-            } catch (e) { /* localStorage pode falhar */ }
+            } catch (e) {  }
         })();
     </script>
 </head>
 <body class="min-h-full bg-black text-white flex flex-col" x-data x-init="document.querySelectorAll('[data-mask]')?.forEach(el=>{el.addEventListener('input',e=>{let m=e.target.getAttribute('data-mask');let v=e.target.value.replace(/\D/g,'');if(m==='cpf'){v=v.slice(0,11).replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');}if(m==='cnpj'){v=v.slice(0,14).replace(/(\d{2})(\d)/,'$1.$2').replace(/(\d{2}).(\d{3})(\d)/,'$1.$2.$3').replace(/(\d{3}).(\d{3})(\d)/,'$1.$2/$3').replace(/(\d{4})(\d{1,2})$/,'$1-$2');}if(m==='cep'){v=v.slice(0,8).replace(/(\d{5})(\d)/,'$1-$2');}if(m==='telefone'){v=v.slice(0,11).replace(/(\d{2})(\d)/,'($1) $2').replace(/(\d{5})(\d{4})$/,'$1-$2');}e.target.value=v;});});">
-    @include('partials.theme-toggle') <!-- inserir logo após <body> -->
-    <!-- Navbar -->
+    @include('partials.theme-toggle') 
     <nav class="bg-black text-white shadow-lg relative z-20 border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 items-center justify-between">
                 <div class="flex items-center gap-6">
                     <a href="{{ route('home') }}" class="flex items-center gap-2 font-semibold text-lg">
             <svg class="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                    Blockchain Verde
+                    Blockchain de Energia renovável
                     </a>
                     <div class="hidden md:flex items-center gap-4 text-sm">
                         <x-nav-link :href="route('home')" :active="request()->routeIs('home')" class="text-white">Início</x-nav-link>
@@ -122,15 +131,13 @@
         </div>
     </footer>
 
-    <!-- Expor autenticação ao JS -->
+    
     <script>
-        // disponível para scripts do frontend; true se usuário logado no Laravel
         window.Laravel = {
             isAuthenticated: @json(auth()->check())
         };
     </script>
 
-    <!-- Adicionado: ethers.js + script de integração blockchain -->
     <script>window.ethersLoaded = false;</script>
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
     <script>window.ethersLoaded = typeof ethers !== 'undefined';</script>
