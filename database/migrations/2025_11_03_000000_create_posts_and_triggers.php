@@ -23,7 +23,7 @@ class CreatePostsAndTriggers extends Migration
         Schema::create('posts_audit', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('post_id')->nullable();
-            $table->string('action'); // INSERT, UPDATE, DELETE
+            $table->string('action'); 
             $table->json('old_values')->nullable();
             $table->json('new_values')->nullable();
             $table->unsignedBigInteger('performed_by')->nullable();
